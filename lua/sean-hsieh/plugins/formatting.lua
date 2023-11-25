@@ -10,6 +10,7 @@ return {
         typescript = { "prettier" },
         javascriptreact = { "prettier" },
         typescriptreact = { "prettier" },
+        json = { "prettier" },
         lua = { "stylua" },
       },
       format_on_save = {
