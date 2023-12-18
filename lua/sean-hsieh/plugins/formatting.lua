@@ -6,10 +6,10 @@ return {
     local conform = require("conform")
     conform.setup({
       formatters_by_ft = {
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
         json = { "prettier" },
         lua = { "stylua" },
       },
@@ -18,6 +18,7 @@ return {
         async = false,
         timeout_ms = 1000,
       },
+      log_level = vim.log.levels.DEBUG,
     })
   end,
 }
