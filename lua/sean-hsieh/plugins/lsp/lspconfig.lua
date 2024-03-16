@@ -34,32 +34,52 @@ return {
 
       lsp_zero.on_attach(function(client, bufnr)
         -- see :help lsp-zero-keybindings
-        local nmap = function(keys, func, desc)
-          if desc then
-            desc = "LSP: " .. desc
-          end
-
-          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, remap = false })
-        end
         -- to learn the available actions
-        lsp_zero.default_keymaps({ buffer = bufnr })
-        vim.keymap.set("n", "<leader>vca", function()
-          vim.lsp.buf.code_action()
-        end, { buffer = bufnr, remap = false })
-        vim.keymap.set("n", "<leader>vrr", function()
+        -- local opts = { buffer = bufnr, remap = false }
+        local map = function(keys, func, desc) 
+          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
+        end
+
+        map("gd", function()
+          vim.lsp.buf.definition()
+        end, "Go to definition")
+        map("gr", function()
           vim.lsp.buf.references()
-        end, { buffer = bufnr, remap = false })
-        vim.keymap.set("n", "<leader>vrn", function()
+        end, "Go to references")
+        map("gI", function()
+          vim.lsp.buf.implementation()
+        end, "Go to implementation")
+        map("K", function()
+          vim.lsp.buf.hover()
+        end, "Show hover")
+
+        map("<leader>vd", function()
+          vim.diagnostic.open_float()
+        end, "Show diagnostics [Error] messages")
+
+        map("<leader>vca", function()
+          vim.lsp.buf.code_action()
+        end, "Show code actions")
+        map("<leader>vws", function()
+          vim.lsp.buf.workspace_symbol()
+        end, "Search workspace symbols")
+        map("<leader>vrn", function()
           vim.lsp.buf.rename()
-        end, { buffer = bufnr, remap = false })
-        vim.keymap.set("n", "<C-h>", function()
+        end, "Rename")
+        map("<leader>vrn", function()
+          vim.lsp.buf.rename()
+        end, "Rename")
+        map("<C-h>", function()
           vim.lsp.buf.signature_help()
-        end, { buffer = bufnr, remap = false })
-        nmap("gd", function()
-          require("telescope.builtin").lsp_definitions({ jump_type = "vsplit" })
-        end, "[G]oto [D]efinition")
-        nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-        nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+        end, "Show signature help")
+        map("[d", function()
+          vim.diagnostic.goto_prev()
+        end, "Go to previous diagnostic")
+        map("]d", function()
+          vim.diagnostic.goto_next()
+        end, "Go to next diagnostic")
+
+        lsp_zero.default_keymaps({ buffer = bufnr })
       end)
 
       require("mason-lspconfig").setup({
