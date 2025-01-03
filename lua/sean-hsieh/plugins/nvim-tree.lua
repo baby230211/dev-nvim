@@ -30,6 +30,14 @@ return {
       },
       filters = { custom = { ".DS_Store" } },
       git = { ignore = false },
+      update_focused_file = {
+        enable = true,
+        update_root = {
+          enable = false,
+          ignore_list = {},
+        },
+        exclude = false,
+      },
     })
 
     local keymap = vim.keymap

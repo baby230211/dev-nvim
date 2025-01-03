@@ -12,6 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { import = "sean-hsieh.plugins" },
-    { import = "sean-hsieh.plugins.lsp" },
+  { import = "sean-hsieh.plugins.lsp" },
+  { import = "sean-hsieh.plugins" },
 })
